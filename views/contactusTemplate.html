@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-md-12" role="main">
+      <div class="post-container">
+         <!-- content -->
+         <div class="post-content">
+           <form id="query_form" class="form-horizontal form-well" role="form" action="/contactusInsert" method="post">
+              <div>Name: <input type="text" class="form-control" id="name" name="name"></div>
+              <div>Email: <input type="text" class="form-control" id="email" name="email"></div>
+              <div>Password: <input type="text" class="form-control" id="password" name="password"></div>
+              <div> <button type="submit" class="btn btn-primary">Submit</button></div>
+           </form>
+
+
+            {{if .error}}
+               <div>{{.error}}
+                  <a href="/contactus">回前頁</a>
+               </div>
+            {{else}}
+
+               {{range $index, $elem := .data}}
+                  <div>
+                     <input type="button"  name="delId" value="del" onclick="location.href='/contactusDel/{{$elem.Id}}'">
+                     {{$elem.Id}} - 名稱：{{$elem.Username}}  信箱：{{$elem.Email}}
+                     <form  action="/contactusUpdate" method="post">
+                        <input type="hidden"  name="id" value="{{$elem.Id}}">
+                        Name:<input type="text" id="name" name="name">
+                        <button type="submit" >Submit</button>
+                     </form>
+                  </div>
+               {{end}}
+
+            {{end}}
+         </div>
+      </div>
+    </div>
+  </div>
